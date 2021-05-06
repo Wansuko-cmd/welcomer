@@ -1,12 +1,15 @@
 package com.wsr
 
-import io.ktor.server.engine.*
-import io.ktor.server.netty.*
-import com.wsr.plugins.*
+import io.ktor.application.*
+import io.ktor.response.*
+import io.ktor.routing.*
 
-fun main() {
-    embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
-        configureRouting()
-        configureSerialization()
-    }.start(wait = true)
+fun main(args: Array<String>) = io.ktor.server.netty.EngineMain.main(args)
+
+fun Application.main(){
+    routing {
+        get("/"){
+            call.respondText("Hello World")
+        }
+    }
 }
