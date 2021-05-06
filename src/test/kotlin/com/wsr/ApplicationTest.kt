@@ -9,7 +9,7 @@ import kotlinx.serialization.json.Json
 
 class ApplicationTest {
     @Test
-    fun testRoot() {
+    fun testRootPost() {
 
         val challengeJson = Json.encodeToString(
             Challenge(
@@ -26,6 +26,16 @@ class ApplicationTest {
             }.apply {
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertEquals(challengeJson, response.content)
+            }
+        }
+    }
+
+    @Test
+    fun testRootGet(){
+        withTestApplication({ main() }){
+            handleRequest(HttpMethod.Get, "/").apply {
+                assertEquals(HttpStatusCode.OK, response.status())
+                assertEquals("This server are working!", response.content)
             }
         }
     }
