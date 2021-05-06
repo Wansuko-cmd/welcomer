@@ -24,7 +24,6 @@ dependencies {
     implementation("io.ktor:ktor-server-core:$ktor_version")
     implementation("io.ktor:ktor-serialization:$ktor_version")
     implementation("io.ktor:ktor-server-netty:$ktor_version")
-    testImplementation("io.ktor:ktor-server-tests:$ktor_version")
 
     //クライアント側
     implementation("io.ktor:ktor-client-core:$ktor_version")
@@ -33,4 +32,8 @@ dependencies {
 
     //ログ
     implementation("ch.qos.logback:logback-classic:$logback_version")
+
+    //テスト
+    testImplementation("io.ktor:ktor-server-tests:$ktor_version")
+    testImplementation("junit:junit:4.12")
 }

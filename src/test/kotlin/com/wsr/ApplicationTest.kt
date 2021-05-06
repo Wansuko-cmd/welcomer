@@ -8,9 +8,15 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 class ApplicationTest {
+
+    /**
+     * テストするURL: ルート
+     * Method: Post
+     * Receive: Challengeクラスと合致するJson
+     * Response: 受け取ったものと同じJson
+     */
     @Test
     fun testRootPost() {
-
         val challengeJson = Json.encodeToString(
             Challenge(
                 "Jhj5dZrVaK7ZwHHjRyZWjbDl",
@@ -30,6 +36,12 @@ class ApplicationTest {
         }
     }
 
+    /**
+     * テストするURL: ルート
+     * Method: Get
+     * Receive: なし
+     * Response: This server is working!
+     */
     @Test
     fun testRootGet(){
         withTestApplication({ main() }){
