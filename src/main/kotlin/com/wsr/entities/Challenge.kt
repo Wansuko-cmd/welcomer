@@ -1,4 +1,4 @@
-package com.wsr
+package com.wsr.entities
 
 import kotlinx.serialization.*
 

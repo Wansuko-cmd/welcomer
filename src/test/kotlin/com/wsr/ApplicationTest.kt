@@ -1,9 +1,9 @@
 package com.wsr
 
+import com.wsr.entities.Challenge
 import io.ktor.http.*
 import kotlin.test.*
 import io.ktor.server.testing.*
-import io.ktor.util.Identity.encode
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
