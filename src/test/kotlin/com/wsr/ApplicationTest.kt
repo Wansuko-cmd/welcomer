@@ -1,23 +1,31 @@
 package com.wsr
 
-import io.ktor.routing.*
 import io.ktor.http.*
-import io.ktor.serialization.*
-import io.ktor.features.*
-import io.ktor.application.*
-import io.ktor.response.*
-import io.ktor.request.*
-import com.example.plugins.*
 import kotlin.test.*
 import io.ktor.server.testing.*
+import io.ktor.util.Identity.encode
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 class ApplicationTest {
     @Test
     fun testRoot() {
-        withTestApplication({ configureRouting() }) {
-            handleRequest(HttpMethod.Get, "/").apply {
+
+        val challengeJson = Json.encodeToString(
+            Challenge(
+                "Jhj5dZrVaK7ZwHHjRyZWjbDl",
+                "3eZbrw1aBm2rZgRNFdxV2595E9CY3gmdALWMmHkvFXO7tYXAYM8P",
+                "url_verification"
+            )
+        )
+
+        withTestApplication({ main() }) {
+            handleRequest(HttpMethod.Post, "/") {
+                addHeader("Content-Type", "application/json")
+                setBody(challengeJson)
+            }.apply {
                 assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals("Hello World!", response.content)
+                assertEquals(challengeJson, response.content)
             }
         }
     }

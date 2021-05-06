@@ -8,8 +8,8 @@ fun main(args: Array<String>) = io.ktor.server.netty.EngineMain.main(args)
 
 fun Application.main(){
     routing {
-        get("/"){
-            call.respondText("Hello World")
+        post("/"){
+            call.respondText("Hello World!")
         }
     }
 }
