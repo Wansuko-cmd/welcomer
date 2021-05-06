@@ -35,7 +35,7 @@ class ApplicationTest {
         withTestApplication({ main() }){
             handleRequest(HttpMethod.Get, "/").apply {
                 assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals("This server are working!", response.content)
+                assertEquals("This server is working!", response.content)
             }
         }
     }

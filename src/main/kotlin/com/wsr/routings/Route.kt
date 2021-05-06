@@ -8,6 +8,10 @@ import io.ktor.routing.*
 
 fun Application.route(){
     routing {
+        get("/"){
+            call.respondText("This server is working!")
+        }
+
         post("/"){
             val challenge = call.receive<Challenge>()
 
