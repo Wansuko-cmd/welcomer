@@ -1,6 +1,6 @@
 package com.wsr.services
 
-import com.wsr.entities.Message
+import com.wsr.model.Message
 
 object Service{
 
@@ -10,11 +10,25 @@ object Service{
      */
     fun setMessage(action: String? = null): Message {
 
-        return when (action) {
-            "Hello World" -> sayHelloWorld()
-            null -> elseMessage()
-            else -> elseMessage()
-        }
+        return Message("""
+            <@${action}> Slackへの参加ありがとう！ せっかくなので，簡単な自己紹介をしてもらえると嬉しいです！
+            ```
+            ニックネーム or 本名
+            学部学科
+            趣味
+            興味のある分野
+            どこでこのサークルを知ったか
+            ひとことコメント
+            ```
+            この辺を書いてもらえると！
+            あと、急ぎの連絡とかもあるので、Slackのモバイルアプリをインストールしておいてください！
+            """.trimIndent())
+
+//        return when (action) {
+//            "Hello World" -> sayHelloWorld()
+//            null -> elseMessage()
+//            else -> elseMessage()
+//        }
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.wsr
 
-import com.wsr.entities.Challenge
+import com.wsr.model.Challenge
 import io.ktor.http.*
 import kotlin.test.*
 import io.ktor.server.testing.*
