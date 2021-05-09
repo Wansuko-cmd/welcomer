@@ -2,6 +2,7 @@ package com.wsr.model.slack
 
 import kotlinx.serialization.Serializable
 
+//Slackから送信されてくるJsonを読み取るためのクラス
 @Serializable
 data class Slack(
     val token: String,

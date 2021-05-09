@@ -23,12 +23,6 @@ object Service{
             この辺を書いてもらえると！
             あと、急ぎの連絡とかもあるので、Slackのモバイルアプリをインストールしておいてください！
             """.trimIndent())
-
-//        return when (action) {
-//            "Hello World" -> sayHelloWorld()
-//            null -> elseMessage()
-//            else -> elseMessage()
-//        }
     }
 
     /**
