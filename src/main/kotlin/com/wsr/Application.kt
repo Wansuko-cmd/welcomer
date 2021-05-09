@@ -5,6 +5,7 @@ import com.wsr.routings.mainRoute
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.serialization.*
+import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -15,7 +16,10 @@ fun Application.main(){
 
     //Serializerのインストール
     install(ContentNegotiation){
-        json()
+        json(Json {
+            isLenient = true
+            ignoreUnknownKeys = true
+        })
     }
 
     //H2のセットアップ

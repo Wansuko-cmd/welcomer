@@ -1,13 +1,11 @@
 package com.wsr.model.slack
 
+import com.typesafe.config.Optional
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class JoinTeam(
+data class Event(
     val type: String,
+    val text: String? = null,
     val user: String,
-    val channel: String,
-    val channel_type: String,
-    val team: String,
-    val event_ts: String
 )

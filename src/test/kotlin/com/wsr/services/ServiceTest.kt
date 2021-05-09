@@ -11,7 +11,7 @@ class ServiceTest {
      */
     @Test
     fun helloTest(){
-        val text = Service.setMessage("Hello World").text
+        val text = SendMessageService.setMessage("Hello World").text
         Assert.assertEquals("Hello World", text)
     }
 
@@ -21,7 +21,7 @@ class ServiceTest {
      */
     @Test
     fun elseTest(){
-        val text = Service.setMessage("Else").text
+        val text = SendMessageService.setMessage("Else").text
         Assert.assertEquals("Say again please?", text)
     }
 }

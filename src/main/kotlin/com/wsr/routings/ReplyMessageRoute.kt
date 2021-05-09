@@ -3,8 +3,8 @@ package com.wsr.routings
 import com.typesafe.config.ConfigFactory
 import com.wsr.model.h2.entities.User
 import com.wsr.model.h2.tables.Users
-import com.wsr.model.slack.Slack
-import com.wsr.services.Service
+import com.wsr.model.slack.Action
+import com.wsr.services.SendMessageService
 import io.ktor.application.*
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
@@ -34,20 +34,13 @@ fun Routing.replyMessageRoute(){
     post("/"){
 
         //Slack APIから、イベントの情報を入手
-        val slack = call.receive<Slack>()
+        val action = call.receive<Action>()
 
         //Slack APIに、無事入手したことを報告(これをしないと定期的に送られてくる)
         call.respondText("Got it")
 
-        //データベースに、既に紹介文を送信したユーザーとして登録されているかどうか
-        var isExist = false
-
-        transaction {
-            isExist = User.find { Users.userId eq slack.event.user }.count() > 0
-        }
-
-        if(!isExist){
-
+        //送るメッセージがあれば送る
+        SendMessageService.sendMessage(action)?.let {
             //メッセージを送信する処理
             launch {
                 client.post(url) {
@@ -56,26 +49,11 @@ fun Routing.replyMessageRoute(){
                     }
 
                     //メッセージ本文
-                    body = Service.setMessage(slack.event.user)
+                    body = it
                 }
             }.join()
 
-            //送信のログを吐く
-            println("Sent")
-
-            //データベースの、紹介文を送信したユーザーに登録
-            transaction {
-                User.new {
-                    userId = slack.event.user
-                }
-            }
-
-            //登録したことをログに吐く
-            println("Registered")
-        }else{
-
-            //一度送信したことをログに吐く
-            println("OUT")
+            println("Send")
         }
     }
 }
