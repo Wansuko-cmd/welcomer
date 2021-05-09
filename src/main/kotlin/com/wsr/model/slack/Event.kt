@@ -7,5 +7,5 @@ import kotlinx.serialization.Serializable
 data class Event(
     val type: String,
     val text: String? = null,
-    val user: String,
+    val user: String? = null,
 )

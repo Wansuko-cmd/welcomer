@@ -9,4 +9,5 @@ class User(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<User>(Users)
 
     var userId by Users.userId
+    var createdAt by Users.createdAt
 }

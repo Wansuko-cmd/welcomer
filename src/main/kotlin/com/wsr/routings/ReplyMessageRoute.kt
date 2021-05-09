@@ -1,8 +1,6 @@
 package com.wsr.routings
 
 import com.typesafe.config.ConfigFactory
-import com.wsr.model.h2.entities.User
-import com.wsr.model.h2.tables.Users
 import com.wsr.model.slack.Action
 import com.wsr.services.SendMessageService
 import io.ktor.application.*
@@ -15,7 +13,6 @@ import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import kotlinx.coroutines.launch
-import org.jetbrains.exposed.sql.transactions.transaction
 
 fun Routing.replyMessageRoute(){
 
@@ -39,8 +36,9 @@ fun Routing.replyMessageRoute(){
         //Slack APIに、無事入手したことを報告(これをしないと定期的に送られてくる)
         call.respondText("Got it")
 
-        //送るメッセージがあれば送る
+        //送るメッセージがあれば送る(nullであれば送らない)
         SendMessageService.sendMessage(action)?.let {
+
             //メッセージを送信する処理
             launch {
                 client.post(url) {

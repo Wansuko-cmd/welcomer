@@ -1,45 +1,66 @@
 package com.wsr.services
 
-import com.typesafe.config.ConfigFactory
 import com.wsr.model.Message
+import com.wsr.model.h2.entities.SentMessage
 import com.wsr.model.h2.entities.User
+import com.wsr.model.h2.tables.SentMessages
 import com.wsr.model.h2.tables.Users
 import com.wsr.model.slack.Action
 import com.wsr.model.slack.Event
-import io.ktor.client.*
-import io.ktor.client.engine.cio.*
-import io.ktor.client.features.json.*
-import io.ktor.client.request.*
-import io.ktor.config.*
-import kotlinx.coroutines.launch
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.Op
+import org.jetbrains.exposed.sql.exists
+import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 
 object SendMessageService{
 
-    //Postを投げるためのクライアントのインストール
-    private val client = HttpClient(CIO){
-        install(JsonFeature)
-    }
+    /**
+     * イベントに応じて叩く関数を指定する関数
+     * null -> 送信しない
+     */
+    fun sendMessage(action: Action): Message? {
+        if (action.event.user == null) return null
 
-    //Postを飛ばす先を設定ファイルから読み込む処理
-    private val appConfig = HoconApplicationConfig(ConfigFactory.load())
-    private val url = appConfig.property("slack.url").getString()
-
-    fun sendMessage(action: Action): Message?{
-        return when (action.event.type) {
+        val sendMessage = when (action.event.type) {
             "app_mention" -> makeReplyMessage(action.event.text)
             "member_joined_channel" -> makeIntroductionMessage(action.event.user)
             else -> null
         }
+
+        sendMessage?.let { message ->
+            transaction {
+                SentMessage.new {
+                    this.userId = action.event.user
+                    this.message = message.text
+                }
+            }
+        }
+
+        return sendMessage
     }
 
+    /**
+     * アプリがメンションされた際に返すメッセージを作成する関数
+     */
     private fun makeReplyMessage(text: String?): Message?{
+
         if(text == null) return null
 
-        return Message("Hello World")
+        val getMessage = text.removePrefix("<@U0211DXNPGE>").trim()
+
+        println(getMessage)
+
+        val replyText = when(getMessage){
+            "Hello World" -> "はろーわーるど"
+            else -> getMessage
+        }
+
+        return Message(replyText)
     }
 
+    /**
+     * 新たなチームメンバーが入ってきたときに紹介文を用意するか決める関数
+     */
     private fun makeIntroductionMessage(userId: String): Message?{
 
         //データベースに、既に紹介文を送信したユーザーとして登録されているかどうか
