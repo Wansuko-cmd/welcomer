@@ -46,4 +46,8 @@ dependencies {
 
     //データベース
     implementation("com.h2database:h2:1.4.200")
+
+    //HTML出力用
+    implementation("io.ktor:ktor-html-builder:$ktor_version")
+    implementation("io.ktor:ktor-freemarker:$ktor_version")
 }

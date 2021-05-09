@@ -3,6 +3,7 @@ package com.wsr.routings
 import com.wsr.model.h2.entities.User
 import com.wsr.model.h2.tables.Users
 import io.ktor.application.*
+import io.ktor.freemarker.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import org.jetbrains.exposed.sql.deleteAll
@@ -16,15 +17,14 @@ fun Routing.showStatusRoute(){
     get("/"){
 
         //紹介文を送信したユーザーのリスト
-        val list = mutableListOf<String>()
+        var users = listOf<User>()
 
         //データベースに登録されているユーザーを抽出
         transaction {
-            val users = User.all()
-            users.forEach{ user -> list.add(user.userId) }
+            users = User.all().toList()
         }
 
-        call.respondText(list.toString())
+        call.respond(FreeMarkerContent("index.ftl", mapOf("users" to users), ""))
     }
 
     /**
