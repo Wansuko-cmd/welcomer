@@ -73,7 +73,7 @@ object DBController {
 
                 SentMessage.new {
                     this.userId = "Java"
-                    this.comingMessage = "Java is better tha Kotlin"
+                    this.comingMessage = "Java is better than Kotlin"
                     this.reply = "..."
                 }
             }

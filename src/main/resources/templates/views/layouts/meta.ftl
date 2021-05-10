@@ -9,5 +9,6 @@
 <!-- 自前 -->
 <style>
     <#include "../../css/layouts/app.css">
+    <#include "../../css/layouts/header.css">
     <#include "../../css/layouts/footer.css">
 </style>

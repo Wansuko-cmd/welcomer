@@ -5,7 +5,6 @@
 <#import "../layouts/app.ftl" as app/>
 <@app.content title=title>
     <div class="container">
-        <button class="btn btn-info">TEST</button>
         <table>
             <#list sentMessages as sentMessage>
                 <tr>
