@@ -3,9 +3,16 @@
 <#assign title="KoTo">
 
 <#import "../../layouts/app.ftl" as app/>
+<#import "../../layouts/component.ftl" as component/>
+
 <@app.content title=title>
     <div class="container">
-        <h1>Introduction</h1>
-        <h4>${introduction}</h4>
+        <div class="row">
+            <@component.card title="紹介文">
+                <div class="h5 rounded border p-5">
+                    ${introduction}
+                </div>
+            </@component.card>
+        </div>
     </div>
 </@app.content>

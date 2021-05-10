@@ -17,7 +17,7 @@
                 <table class="table table-striped table-bordered" style="width: 850px;">
                     <thead class="table-dark">
                     <tr>
-                        <th scope="col">送られてきたメッセージ</th>
+                        <th scope="col">アクション</th>
                         <th scope="col">返答</th>
                     </tr>
                     </thead>

@@ -79,4 +79,14 @@ object DBController {
             }
         }
     }
+
+    fun makeSentMessageHistory(user: String, comingMessage: String, reply: String){
+        transaction {
+            SentMessage.new {
+                this.userId = user
+                this.comingMessage = comingMessage
+                this.reply = reply
+            }
+        }
+    }
 }

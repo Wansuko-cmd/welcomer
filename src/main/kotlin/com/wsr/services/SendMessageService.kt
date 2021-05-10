@@ -2,6 +2,7 @@ package com.wsr.services
 
 import com.typesafe.config.ConfigFactory
 import com.wsr.model.Message
+import com.wsr.model.h2.DBController
 import com.wsr.model.h2.entities.SentMessage
 import com.wsr.model.h2.entities.User
 import com.wsr.model.h2.tables.Users
@@ -41,13 +42,11 @@ object SendMessageService{
         }
 
         sendMessage?.let { message ->
-            transaction {
-                SentMessage.new {
-                    this.userId = action.event.user
-                    this.comingMessage = action.event.text ?: "${action.event.user} がチームに参加"
-                    this.reply = message.text
-                }
-            }
+            DBController.makeSentMessageHistory(
+                action.event.user,
+                action.event.text ?: "${action.event.user} がチームに参加",
+                message.text
+            )
         }
 
         return sendMessage
