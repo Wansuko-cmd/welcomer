@@ -1,24 +1,37 @@
 package com.wsr.services
 
+import com.typesafe.config.ConfigFactory
 import com.wsr.model.Message
 import com.wsr.model.h2.entities.SentMessage
 import com.wsr.model.h2.entities.User
-import com.wsr.model.h2.tables.SentMessages
 import com.wsr.model.h2.tables.Users
 import com.wsr.model.slack.Action
-import com.wsr.model.slack.Event
-import org.jetbrains.exposed.sql.Op
-import org.jetbrains.exposed.sql.exists
-import org.jetbrains.exposed.sql.select
+import io.ktor.client.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.features.json.*
+import io.ktor.client.request.*
+import io.ktor.config.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.transactions.transaction
 
 object SendMessageService{
+
+    //Postを投げるためのクライアントのインストール
+    private val client = HttpClient(CIO){
+        install(JsonFeature)
+    }
+
+    //Postを飛ばす先を設定ファイルから読み込む処理
+    private val appConfig = HoconApplicationConfig(ConfigFactory.load())
+    private val url = appConfig.property("slack.url").getString()
 
     /**
      * イベントに応じて叩く関数を指定する関数
      * null -> 送信しない
      */
-    fun sendMessage(action: Action): Message? {
+    fun makeReply(action: Action): Message? {
         if (action.event.user == null) return null
 
         val sendMessage = when (action.event.type) {
@@ -38,6 +51,25 @@ object SendMessageService{
         }
 
         return sendMessage
+    }
+
+    /**
+     * 指定されたurlへメッセージを送信
+     */
+    suspend fun sendMessage(message: Message) = withContext(Dispatchers.Default) {
+        //メッセージを送信する処理
+        launch {
+            client.post(url) {
+                headers {
+                    append(io.ktor.http.HttpHeaders.ContentType, "application/json")
+                }
+
+                //メッセージ本文
+                body = message
+            }
+        }.join()
+
+        println("Send")
     }
 
     /**
