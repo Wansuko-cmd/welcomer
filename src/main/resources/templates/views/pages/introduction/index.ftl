@@ -1,6 +1,6 @@
 <#-- @ftlvariable name="introduction" type="String" -->
 
-<#assign title="KoTo">
+<#assign title="KoTo-Introduction">
 
 <#import "../../layouts/app.ftl" as app/>
 <#import "../../layouts/component.ftl" as component/>

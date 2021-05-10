@@ -1,19 +1,11 @@
-<div style="width: 300px;">
-    <a href="/">
-        <div class="text-center border border-dark pt-3" style="height: 80px; font-size: x-large;">
-            ホーム
-        </div>
-    </a>
+<#import "./sidebar_component.ftl" as sidebar_component>
 
-    <a href="/message">
-        <div class="text-center border border-dark pt-3" style="height: 80px; font-size: x-large">
-            メッセージ
-        </div>
-    </a>
+<div style="width: 300px;" class="border border-black-50 box">
 
-    <a href="/introduction">
-        <div class="text-center border border-dark pt-3" style="height: 80px; font-size: x-large">
-            紹介文
-        </div>
-    </a>
+    <@sidebar_component.card url="/" title="ホーム" />
+
+    <@sidebar_component.card url="/message" title="メッセージ" />
+
+    <@sidebar_component.card url="/introduction" title="紹介文" />
+
 </div>

@@ -1,4 +1,4 @@
-<#assign title="KoTo">
+<#assign title="KoTo-Message">
 
 <#import "../../layouts/app.ftl" as app/>
 <#import "../../layouts/component.ftl" as component/>
