@@ -31,7 +31,8 @@ object SendMessageService{
             transaction {
                 SentMessage.new {
                     this.userId = action.event.user
-                    this.message = message.text
+                    this.comingMessage = action.event.text ?: "${action.event.user} がチームに参加"
+                    this.reply = message.text
                 }
             }
         }

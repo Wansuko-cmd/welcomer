@@ -1,6 +1,7 @@
 package com.wsr.routings
 
 import com.typesafe.config.ConfigFactory
+import com.wsr.model.Challenge
 import com.wsr.model.slack.Action
 import com.wsr.services.SendMessageService
 import io.ktor.application.*
@@ -34,7 +35,7 @@ fun Routing.replyMessageRoute(){
         val action = call.receive<Action>()
 
         //Slack APIに、無事入手したことを報告(これをしないと定期的に送られてくる)
-        call.respondText("Got it")
+        call.respond(Challenge("www", "Got it", "www"))
 
         //送るメッセージがあれば送る(nullであれば送らない)
         SendMessageService.sendMessage(action)?.let {

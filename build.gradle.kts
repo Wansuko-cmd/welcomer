@@ -2,6 +2,7 @@ val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
 val exposed_version: String by project
+val hikari_version: String by project
 
 plugins {
     application
@@ -46,6 +47,9 @@ dependencies {
 
     //データベース
     implementation("com.h2database:h2:1.4.200")
+
+    //hikari
+    implementation("com.zaxxer:HikariCP:$hikari_version")
 
     //HTML出力用
     implementation("io.ktor:ktor-html-builder:$ktor_version")

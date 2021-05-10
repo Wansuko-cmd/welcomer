@@ -6,6 +6,7 @@ import org.joda.time.DateTime
 
 object SentMessages : IntIdTable() {
     val userId = varchar("user_id", 50)
-    val message = text("message")
+    val comingMessage = text("coming_message")
+    val reply = text("reply")
     val createdAt = datetime("created_at").clientDefault { DateTime.now() }
 }

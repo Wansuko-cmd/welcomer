@@ -1,5 +1,7 @@
 package com.wsr.routings
 
+import com.wsr.model.Message
+import com.wsr.model.h2.entities.SentMessage
 import com.wsr.model.h2.entities.User
 import com.wsr.model.h2.tables.Users
 import io.ktor.application.*
@@ -16,15 +18,15 @@ fun Routing.showStatusRoute(){
      */
     get("/"){
 
-        //紹介文を送信したユーザーのリスト
-        var users = listOf<User>()
+        var sentMessages = listOf<SentMessage>()
+
 
         //データベースに登録されているユーザーを抽出
         transaction {
-            users = User.all().toList()
+            sentMessages = SentMessage.all().toList()
         }
 
-        call.respond(FreeMarkerContent("index.ftl", mapOf("users" to users), ""))
+        call.respond(FreeMarkerContent("pages/index.ftl", mapOf("sentMessages" to sentMessages), ""))
     }
 
     /**
@@ -35,5 +37,13 @@ fun Routing.showStatusRoute(){
             Users.deleteAll()
         }
         call.respondText("Success")
+    }
+
+    get("/message"){
+        call.respond(FreeMarkerContent("pages/message/index.ftl", mapOf("" to ""), ""))
+    }
+
+    get("/introduction"){
+        call.respond(FreeMarkerContent("pages/introduction/index.ftl", mapOf("" to ""), ""))
     }
 }

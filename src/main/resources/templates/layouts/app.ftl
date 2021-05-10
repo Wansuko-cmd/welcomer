@@ -5,10 +5,12 @@
         <#include "meta.ftl">
     </head>
 
-
     <body>
         <#include "header.ftl">
-        <#nested/>
+        <div class="d-flex">
+            <#include "sidebar.ftl">
+            <#nested/>
+        </div>
         <#include "footer.ftl">
     </body>
 

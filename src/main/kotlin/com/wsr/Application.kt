@@ -1,5 +1,6 @@
 package com.wsr
 
+import com.wsr.model.h2.DBController
 import com.wsr.model.h2.entities.User
 import com.wsr.model.h2.tables.Users
 import com.wsr.routings.mainRoute
@@ -32,18 +33,9 @@ fun Application.main(){
         outputFormat = HTMLOutputFormat.INSTANCE
     }
 
-    //H2のセットアップ
-    Database.connect("jdbc:h2:mem:ktor_db;DB_CLOSE_DELAY=-1", "org.h2.Driver")
-    transaction {
-        SchemaUtils.create(Users)
 
-        User.new {
-            this.userId = "TEST"
-        }
-        User.new {
-            this.userId = "HELLO"
-        }
-    }
+    DBController.init()
+    DBController.seeding()
 
     mainRoute()
 }

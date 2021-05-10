@@ -2,10 +2,9 @@
 
 <#assign title="KoTo">
 
-<#import "layouts/app.ftl" as app/>
+<#import "../../layouts/app.ftl" as app/>
 <@app.content title=title>
-    <button class="btn btn-info">TEST</button>
-    <#list users as user>
-        <div>${user.userId}</div>
-    </#list>
+    <div class="container">
+        <h1>Introduction</h1>
+    </div>
 </@app.content>

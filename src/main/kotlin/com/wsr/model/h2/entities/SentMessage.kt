@@ -9,6 +9,7 @@ class SentMessage(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<SentMessage>(SentMessages)
 
     var userId by SentMessages.userId
-    var message by SentMessages.message
+    var comingMessage by SentMessages.comingMessage
+    var reply by SentMessages.reply
     var createdAt by SentMessages.createdAt
 }
