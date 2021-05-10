@@ -16,15 +16,13 @@ object DBController {
 
     private val appConfig = HoconApplicationConfig(ConfigFactory.load())
     private val driverClass = appConfig.property("db.driverClass").getString()
-    private val dbUrl = appConfig.property("db.url").getString()
+    private val jdbcUrl = appConfig.property("db.jdbcUrl").getString()
     private val dbUser = appConfig.property("db.user").getString()
     private val dbPassword = appConfig.property("db.password").getString()
 
     fun init(){
 
         //H2のセットアップ
-//        Database.connect("jdbc:h2:mem:ktor_db;DB_CLOSE_DELAY=-1", "org.h2.Driver")
-
         Database.connect(hikari())
 
         transaction {
@@ -36,7 +34,9 @@ object DBController {
     private fun hikari(): HikariDataSource {
         val config = HikariConfig().apply {
             driverClassName = driverClass
-            jdbcUrl = dbUrl
+            jdbcUrl = DBController.jdbcUrl
+            username = dbUser
+            password = dbPassword
             maximumPoolSize = 3
             isAutoCommit = false
             transactionIsolation = "TRANSACTION_REPEATABLE_READ"
