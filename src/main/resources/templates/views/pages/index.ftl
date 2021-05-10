@@ -36,16 +36,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
     <script>
 
-        // const dayToCount = {
-        //     10: 3,
-        //     11: 2,
-        //     12: 2,
-        //     13: 3,
-        //     14: 5
-        // }
-
-        let json
-
         $.getJSON("/api/message/dayToCount", (json) => {
 
             let value = 0
@@ -71,7 +61,17 @@
                 },
                 options: {
                     scales: {
+                        xAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: "日付（日）"
+                            }
+                        }],
                         yAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: "送信数"
+                            },
                             ticks: {
                                 min: 0
                             }
