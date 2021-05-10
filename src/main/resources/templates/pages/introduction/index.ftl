@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="users" type="kotlin.collections.List<com.wsr.model.h2.entities.User>" -->
+<#-- @ftlvariable name="introduction" type="String" -->
 
 <#assign title="KoTo">
 
@@ -6,5 +6,6 @@
 <@app.content title=title>
     <div class="container">
         <h1>Introduction</h1>
+        <h4>${introduction}</h4>
     </div>
 </@app.content>

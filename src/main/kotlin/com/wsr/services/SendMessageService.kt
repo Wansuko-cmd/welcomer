@@ -115,19 +115,7 @@ object SendMessageService{
             //登録したことをログに吐く
             println("Registered")
 
-            return Message("""
-            <@${userId}> Slackへの参加ありがとう！ せっかくなので，簡単な自己紹介をしてもらえると嬉しいです！
-            ```
-            ニックネーム or 本名
-            学部学科
-            趣味
-            興味のある分野
-            どこでこのサークルを知ったか
-            ひとことコメント
-            ```
-            この辺を書いてもらえると！
-            あと、急ぎの連絡とかもあるので、Slackのモバイルアプリをインストールしておいてください！
-            """.trimIndent())
+            return Message("<@${userId}> " + appConfig.property("slack.introduction").getString())
         }
 
         println("Already Exist")

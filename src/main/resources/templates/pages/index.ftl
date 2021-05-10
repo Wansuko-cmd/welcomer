@@ -6,8 +6,13 @@
 <@app.content title=title>
     <div class="container">
         <button class="btn btn-info">TEST</button>
-        <#list sentMessages as sentMessage>
-            <div>${sentMessage.reply}</div>
-        </#list>
+        <table>
+            <#list sentMessages as sentMessage>
+                <tr>
+                    <th>${sentMessage.comingMessage}</th>
+                    <td>${sentMessage.reply}</td>
+                </tr>
+            </#list>
+        </table>
     </div>
 </@app.content>
