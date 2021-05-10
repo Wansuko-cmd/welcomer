@@ -10,7 +10,7 @@ import io.ktor.routing.*
 
 fun Route.messageRoute(){
     get("/message"){
-        call.respond(FreeMarkerContent("pages/message/index.ftl", mapOf("" to ""), ""))
+        call.respond(FreeMarkerContent("views/pages/message/index.ftl", mapOf("" to ""), ""))
     }
 
     post("/message"){

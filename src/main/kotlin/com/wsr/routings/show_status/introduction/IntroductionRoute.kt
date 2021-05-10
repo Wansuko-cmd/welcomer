@@ -14,7 +14,7 @@ fun Route.introductionRoute(){
     get("/introduction"){
         val introduction = appConfig.property("slack.introduction").getString()
         call.respond(FreeMarkerContent(
-            "pages/introduction/index.ftl",
+            "views/pages/introduction/index.ftl",
             mapOf("introduction" to introduction),
             ""
         ))

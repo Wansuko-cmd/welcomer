@@ -22,6 +22,6 @@ fun Route.homeRoute(){
             sentMessages = SentMessage.all().toList()
         }
 
-        call.respond(FreeMarkerContent("pages/index.ftl", mapOf("sentMessages" to sentMessages), ""))
+        call.respond(FreeMarkerContent("views/pages/index.ftl", mapOf("sentMessages" to sentMessages), ""))
     }
 }
