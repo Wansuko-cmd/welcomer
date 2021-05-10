@@ -1,4 +1,4 @@
-package com.wsr.routings
+package com.wsr.routings.reply_message
 
 import com.typesafe.config.ConfigFactory
 import com.wsr.model.Challenge
