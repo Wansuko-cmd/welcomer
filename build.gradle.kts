@@ -54,4 +54,7 @@ dependencies {
     //HTML出力用
     implementation("io.ktor:ktor-html-builder:$ktor_version")
     implementation("io.ktor:ktor-freemarker:$ktor_version")
+
+    //認証用
+    implementation("io.ktor:ktor-auth:$ktor_version")
 }

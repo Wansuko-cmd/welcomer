@@ -5,7 +5,7 @@ import com.wsr.routings.show_status.introduction.introductionRoute
 import com.wsr.routings.show_status.message.messageRoute
 import io.ktor.routing.*
 
-fun Routing.showStatusRoute(){
+fun Route.showStatusRoute(){
     homeRoute()
     introductionRoute()
     messageRoute()

@@ -8,7 +8,7 @@ import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 
-fun Routing.replyMessageRoute(){
+fun Route.replyMessageRoute(){
     /**
      * Slack APIからイベントを受け取り、メッセージを送信
      */
