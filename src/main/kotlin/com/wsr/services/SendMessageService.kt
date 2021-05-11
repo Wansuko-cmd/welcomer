@@ -1,12 +1,12 @@
 package com.wsr.services
 
 import com.typesafe.config.ConfigFactory
-import com.wsr.model.Message
+import com.wsr.model.json.Message
 import com.wsr.model.h2.DBController
-import com.wsr.model.h2.entities.SentMessage
 import com.wsr.model.h2.entities.User
 import com.wsr.model.h2.tables.Users
-import com.wsr.model.slack.Action
+import com.wsr.model.json.i10jan.I10jan
+import com.wsr.model.json.slack.Action
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.features.json.*
@@ -14,6 +14,7 @@ import io.ktor.client.request.*
 import io.ktor.config.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -84,6 +85,8 @@ object SendMessageService{
 
         val replyText = when(getMessage){
             "Hello World" -> "はろーわーるど"
+            "部室" -> getI10janResult()
+            "" -> "なんか書けやゴラ"
             else -> getMessage
         }
 
@@ -119,5 +122,24 @@ object SendMessageService{
 
         println("Already Exist")
         return null
+    }
+
+    private fun getI10janResult(): String = runBlocking{
+
+        //メッセージを送信する処理
+        val result = client.get<I10jan>("https://i10jan-api.herokuapp.com/v1.1/api")
+
+        return@runBlocking when{
+            !result.success ->"取得に失敗しました☆"
+            result.data.count() <= 0 -> "部室には誰もいないです"
+            else -> {
+                var text = "部室には今"
+                result.data.forEach {
+                    text += "${it.nickName}と"
+                }
+                if(text.endsWith("と")) text = text.dropLast(1)
+                text + "がいますよ！"
+            }
+        }
     }
 }

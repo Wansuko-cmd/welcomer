@@ -1,6 +1,8 @@
 package com.wsr
 
-import com.wsr.model.Challenge
+import com.wsr.model.json.Challenge
+import com.wsr.model.json.i10jan.I10jan
+import com.wsr.model.json.i10jan.NickName
 import io.ktor.http.*
 import kotlin.test.*
 import io.ktor.server.testing.*
@@ -48,6 +50,22 @@ class ApplicationTest {
             handleRequest(HttpMethod.Get, "/").apply {
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertEquals("This server is working!", response.content)
+            }
+        }
+    }
+
+    @Test
+    fun i10janTest(){
+
+        val i10janJson = Json
+            .encodeToString(I10jan(true, listOf(NickName("いけちぃ"), NickName("オキリョウ"))))
+
+        withTestApplication({ main() }){
+            handleRequest(HttpMethod.Post, "/test") {
+                addHeader("Content-Type", "application/json")
+                setBody(i10janJson)
+            }.apply {
+                assertEquals(HttpStatusCode.OK, response.status())
             }
         }
     }

@@ -9,9 +9,9 @@ import io.ktor.routing.*
 
 fun Application.mainRoute(){
     routing {
+        replyMessageRoute()
         authenticate("auth-basic") {
             apiRoute()
-            replyMessageRoute()
             showStatusRoute()
         }
     }

@@ -13,12 +13,6 @@
                     ${introduction}
                 </div>
             </@component.card>
-
-            <@component.card title="送信したユーザー">
-                <div class="h5 rounded border p-5">
-                    ${introduction}
-                </div>
-            </@component.card>
         </div>
     </div>
 </@app.content>

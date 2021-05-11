@@ -1,4 +1,4 @@
-package com.wsr.model.slack
+package com.wsr.model.json.slack
 
 import kotlinx.serialization.Serializable
 

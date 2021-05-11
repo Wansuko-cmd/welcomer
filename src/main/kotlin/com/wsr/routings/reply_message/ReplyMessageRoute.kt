@@ -1,7 +1,7 @@
 package com.wsr.routings.reply_message
 
-import com.wsr.model.Challenge
-import com.wsr.model.slack.Action
+import com.wsr.model.json.Challenge
+import com.wsr.model.json.slack.Action
 import com.wsr.services.SendMessageService
 import io.ktor.application.*
 import io.ktor.request.*

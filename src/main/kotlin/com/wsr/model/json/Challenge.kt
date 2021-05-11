@@ -1,4 +1,4 @@
-package com.wsr.model
+package com.wsr.model.json
 
 import kotlinx.serialization.*
 
