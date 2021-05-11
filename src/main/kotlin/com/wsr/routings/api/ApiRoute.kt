@@ -10,16 +10,16 @@ import java.time.LocalDateTime
 fun Route.apiRoute(){
 
     /**
-     * 今日から２日前後のメッセージ送信数を返すAPI
+     * 今日から4日前までのメッセージ送信数を返すAPI
      */
     get("/api/message/dayToCount"){
 
         //DBに蓄えられているメッセージ履歴
         var sentMessages = listOf<SentMessage>()
 
-        //本日から２日前後の日付を持つ
+        //本日から4日前までの日付を持つ
         val today = LocalDateTime.now().dayOfMonth
-        val dayList = today-2..today+2
+        val dayList = today-4..today
 
         //一時的にカウント数を代入するための変数
         var counter: Int
