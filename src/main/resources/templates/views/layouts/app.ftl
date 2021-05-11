@@ -8,7 +8,7 @@
     <body>
     <div class="app">
         <#include "header.ftl">
-        <div class="d-flex" style="height: 100vh">
+        <div class="d-flex">
             <#include "sidebar.ftl">
             <#nested/>
         </div>

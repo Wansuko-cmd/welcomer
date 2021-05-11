@@ -13,5 +13,6 @@
 <style>
     <#include "../../css/layouts/app.css">
     <#include "../../css/layouts/header.css">
+    <#include "../../css/layouts/sidebar.css">
     <#include "../../css/layouts/footer.css">
 </style>

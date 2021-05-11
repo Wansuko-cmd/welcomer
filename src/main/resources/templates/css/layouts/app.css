@@ -2,20 +2,5 @@
     min-height: 100vh;
     position: relative;
     padding-bottom: 200px;
-}
-
-html{
-    height:100%;
-}
-body{
-    margin: 0;
-    padding: 0;
-    height:100%;
-}
-body > .box {
-    height: auto;
-}
-.box{
-    height:100%;
-    min-height:100%;
+    box-sizing: border-box;
 }
