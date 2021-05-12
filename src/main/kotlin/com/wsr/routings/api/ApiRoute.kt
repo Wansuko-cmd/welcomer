@@ -19,7 +19,7 @@ fun Route.apiRoute(){
 
         //本日から4日前までの日付を持つ
         val today = LocalDateTime.now().dayOfMonth
-        val dayList = today-4..today
+        val dayList = today - 4..today
 
         //一時的にカウント数を代入するための変数
         var counter: Int

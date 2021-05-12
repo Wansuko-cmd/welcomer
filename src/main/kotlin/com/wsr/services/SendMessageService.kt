@@ -27,7 +27,6 @@ object SendMessageService{
 
     //Postを飛ばす先を設定ファイルから読み込む処理
     private val appConfig = HoconApplicationConfig(ConfigFactory.load())
-    private val url = appConfig.property("slack.url").getString()
 
     /**
      * イベントに応じて叩く関数を指定する関数
@@ -57,6 +56,10 @@ object SendMessageService{
      * 指定されたurlへメッセージを送信
      */
     suspend fun sendMessage(message: Message) = withContext(Dispatchers.Default) {
+
+        val url = appConfig.property("slack.url").getString()
+
+
         //メッセージを送信する処理
         launch {
             client.post(url) {
@@ -126,8 +129,10 @@ object SendMessageService{
 
     private fun getI10janResult(): String = runBlocking{
 
+        val url = appConfig.property("i10jan.url").getString()
+
         //メッセージを送信する処理
-        val result = client.get<I10jan>("https://i10jan-api.herokuapp.com/v1.1/api")
+        val result = client.get<I10jan>(url)
 
         return@runBlocking when{
             !result.success ->"取得に失敗しました☆"

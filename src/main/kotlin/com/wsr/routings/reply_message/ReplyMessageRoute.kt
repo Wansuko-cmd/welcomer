@@ -18,6 +18,8 @@ fun Route.replyMessageRoute(){
         val action = call.receive<Action>()
 
         //Slack APIに、無事入手したことを報告(これをしないと定期的に送られてくる)
+//        val challenge = call.receive<Challenge>()
+//        call.respond(challenge)
         call.respond(Challenge("www", "Got it", "www"))
 
         //送るメッセージがあれば送る(nullであれば送らない)
