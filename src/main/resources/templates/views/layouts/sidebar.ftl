@@ -1,6 +1,6 @@
 <#import "./sidebar_component.ftl" as sidebar_component>
 
-<div class="border border-black-50 d-none d-lg-block sidebar">
+<div class="border border-black-50 d-none d-lg-block sidebar bg-dark">
 
     <@sidebar_component.card url="/" title="ホーム" />
 
