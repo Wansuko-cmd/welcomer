@@ -3,10 +3,6 @@
     min-height: calc(100% - 200px);
 }
 
-.sidebar :active{
-    background-color: red;
-}
-
 
 .sidebar_component{
     height: 80px; font-size: x-large
