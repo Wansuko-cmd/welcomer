@@ -1,6 +1,8 @@
 .app{
     min-height: 100vh;
-    position: relative;
-    padding-bottom: 200px;
-    box-sizing: border-box;
+    height: 100%;
+}
+
+body{
+    background-color: #E5E5E5;
 }

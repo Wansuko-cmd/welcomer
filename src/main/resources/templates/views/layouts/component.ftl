@@ -1,6 +1,6 @@
 <#macro card title>
     <div class="col-auto m-auto my-5">
-        <div class="display-6 mb-3">
+        <div class="h1 mb-3">
             ${title}
         </div>
 

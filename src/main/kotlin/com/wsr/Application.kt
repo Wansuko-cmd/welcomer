@@ -25,7 +25,7 @@ fun Application.main(){
 
     install(Authentication){
         basic("auth-basic") {
-            realm = "Access to th '/' path"
+            realm = "Access to the '/' path"
             validate { credentials ->
                 if (credentials.name == user && credentials.password == password) {
                     UserIdPrincipal(credentials.name)
