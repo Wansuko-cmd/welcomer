@@ -9,7 +9,7 @@
             <@component.card title="メッセージの作成">
                 <form action="/message" method="POST">
                     <label>
-                        <textarea name="body" class="form-control" rows="10" style="width: 800px; font-size: large" required></textarea>
+                        <textarea name="body" class="form-control" rows="10" style="width: 800px; font-size: large; border-radius: 30px" required></textarea>
                     </label>
 
                     <div class="text-end mx-5 mt-4">

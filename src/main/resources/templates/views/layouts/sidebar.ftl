@@ -1,6 +1,6 @@
 <#import "./sidebar_component.ftl" as sidebar_component>
 
-<div class="border border-black-50 d-none d-lg-block sidebar">
+<div class="d-none d-lg-block sidebar">
 
     <div class="mt-3">
         <img src="/static/koto.png" alt="表示できませんでした" style="width: 200px; margin-left: 75px"/>
