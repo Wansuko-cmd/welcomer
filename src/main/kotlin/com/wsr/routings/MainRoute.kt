@@ -11,9 +11,6 @@ import io.ktor.routing.*
 fun Application.mainRoute(){
     routing {
         replyMessageRoute()
-        static("/static"){
-            resources("src")
-        }
         authenticate("auth-basic") {
             apiRoute()
             showStatusRoute()

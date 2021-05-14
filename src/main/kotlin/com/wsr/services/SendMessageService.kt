@@ -89,7 +89,7 @@ object SendMessageService{
         val replyText = when(getMessage){
             "Hello World" -> "はろーわーるど"
             "部室" -> getI10janResult()
-            "" -> "なんか書けやゴラ"
+            "" -> "https://ja.wikipedia.org/wiki/Kotlin"
             else -> getMessage
         }
 
@@ -131,20 +131,26 @@ object SendMessageService{
 
         val url = appConfig.property("i10jan.url").getString()
 
-        //メッセージを送信する処理
-        val result = client.get<I10jan>(url)
+        try{
 
-        return@runBlocking when{
-            !result.success ->"取得に失敗しました☆"
-            result.data.count() <= 0 -> "部室には誰もいないです"
-            else -> {
-                var text = "部室には今"
-                result.data.forEach {
-                    text += "${it.nickName}と"
+            //メッセージを送信する処理
+            val result = client.get<I10jan>(url)
+
+            return@runBlocking when{
+                !result.success ->"取得に失敗しました☆"
+                result.data.count() <= 0 -> "部室には誰もいないです"
+                else -> {
+                    var text = "部室には今"
+                    result.data.forEach {
+                        text += "${it.nickName}と"
+                    }
+                    if(text.endsWith("と")) text = text.dropLast(1)
+                    text + "がいますよ！"
                 }
-                if(text.endsWith("と")) text = text.dropLast(1)
-                text + "がいますよ！"
             }
+
+        }catch (e: Exception){
+            return@runBlocking "取得に失敗しました☆"
         }
     }
 }

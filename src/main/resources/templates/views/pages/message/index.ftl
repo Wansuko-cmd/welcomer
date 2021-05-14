@@ -13,7 +13,8 @@
                     </label>
 
                     <div class="text-end mx-5 mt-4">
-                        <button type="submit" class="btn btn-primary">送信する</button>
+                        <button type="submit" class="btn btn-primary">送信</button>
+<#--                        <img src="src/koto.png" alt="表示できませんでした">-->
                     </div>
                 </form>
             </@component.card>

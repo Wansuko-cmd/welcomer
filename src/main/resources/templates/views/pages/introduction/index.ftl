@@ -9,7 +9,7 @@
     <div class="container">
         <div class="row">
             <@component.card title="紹介文">
-                <div class="h5 rounded border p-5">
+                <div class="h5 border p-5" style="width: 800px; font-size: large; border-radius: 30px; background-color: white">
                     ${introduction}
                 </div>
             </@component.card>
