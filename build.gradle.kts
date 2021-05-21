@@ -8,10 +8,16 @@ plugins {
     application
     kotlin("jvm") version "1.5.0"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.5.0"
+
+    //shadowJar
+    id("com.github.johnrengelman.shadow") version "6.0.0"
+    id("java")
 }
 
 group = "com.wsr"
 version = "0.0.1"
+project.setProperty("mainClassName", "com.wsr.ApplicationKt")
+
 application {
     mainClass.set("com.wsr.ApplicationKt")
 }
