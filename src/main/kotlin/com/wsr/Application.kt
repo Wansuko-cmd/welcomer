@@ -10,6 +10,8 @@ import io.ktor.auth.*
 import io.ktor.config.*
 import io.ktor.features.*
 import io.ktor.freemarker.*
+import io.ktor.response.*
+import io.ktor.routing.*
 import io.ktor.serialization.*
 import kotlinx.serialization.json.Json
 
@@ -53,5 +55,12 @@ fun Application.main(){
 
     DBController.init()
 
-    mainRoute()
+
+    routing {
+        get("/"){
+            call.respondText("Hello")
+        }
+    }
+
+//    mainRoute()
 }
