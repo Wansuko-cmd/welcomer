@@ -52,7 +52,6 @@ fun Application.main(){
 
 
     DBController.init()
-    DBController.seeding()
 
     mainRoute()
 }

@@ -3,6 +3,8 @@ val kotlin_version: String by project
 val logback_version: String by project
 val exposed_version: String by project
 val hikari_version: String by project
+val postgres_version: String by project
+val flyway_version: String by project
 
 plugins {
     application
@@ -56,6 +58,12 @@ dependencies {
 
     //hikari
     implementation("com.zaxxer:HikariCP:$hikari_version")
+
+    //hikari用のpostgresのドライバー
+    implementation("org.postgresql:postgresql:$postgres_version")
+
+    //flyway
+    implementation("org.flywaydb:flyway-core:$flyway_version")
 
     //HTML出力用
     implementation("io.ktor:ktor-html-builder:$ktor_version")
