@@ -1,6 +1,6 @@
-package com.wsr.model.h2.entities
+package com.wsr.model.db.entities
 
-import com.wsr.model.h2.tables.Users
+import com.wsr.model.db.tables.Users
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID

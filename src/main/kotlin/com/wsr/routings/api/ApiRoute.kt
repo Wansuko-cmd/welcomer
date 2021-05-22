@@ -1,6 +1,6 @@
 package com.wsr.routings.api
 
-import com.wsr.model.h2.entities.SentMessage
+import com.wsr.model.db.entities.SentMessage
 import io.ktor.application.*
 import io.ktor.response.*
 import io.ktor.routing.*

@@ -1,16 +1,12 @@
-package com.wsr.model.h2
+package com.wsr.model.db
 
 import com.typesafe.config.ConfigFactory
-import com.wsr.model.h2.entities.SentMessage
-import com.wsr.model.h2.entities.User
-import com.wsr.model.h2.tables.SentMessages
-import com.wsr.model.h2.tables.Users
+import com.wsr.model.db.entities.SentMessage
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.config.*
 import org.flywaydb.core.Flyway
 import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 
 object DBController {

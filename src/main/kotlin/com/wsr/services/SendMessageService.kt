@@ -2,9 +2,9 @@ package com.wsr.services
 
 import com.typesafe.config.ConfigFactory
 import com.wsr.model.json.Message
-import com.wsr.model.h2.DBController
-import com.wsr.model.h2.entities.User
-import com.wsr.model.h2.tables.Users
+import com.wsr.model.db.DBController
+import com.wsr.model.db.entities.User
+import com.wsr.model.db.tables.Users
 import com.wsr.model.json.i10jan.I10jan
 import com.wsr.model.json.slack.Action
 import io.ktor.client.*

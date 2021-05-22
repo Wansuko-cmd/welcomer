@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="sentMessages" type="kotlin.collections.List<com.wsr.model.h2.entities.SentMessage>" -->
+<#-- @ftlvariable name="sentMessages" type="kotlin.collections.List<com.wsr.model.db.entities.SentMessage>" -->
 
 <#assign title="KoTo-Home">
 

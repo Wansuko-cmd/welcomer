@@ -1,7 +1,7 @@
 package com.wsr.routings.show_status.message
 
 import com.wsr.model.json.Message
-import com.wsr.model.h2.DBController
+import com.wsr.model.db.DBController
 import com.wsr.services.SendMessageService
 import io.ktor.application.*
 import io.ktor.freemarker.*

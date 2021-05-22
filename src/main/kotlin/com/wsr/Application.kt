@@ -2,7 +2,7 @@ package com.wsr
 
 
 import com.typesafe.config.ConfigFactory
-import com.wsr.model.h2.DBController
+import com.wsr.model.db.DBController
 import com.wsr.routings.mainRoute
 import freemarker.cache.ClassTemplateLoader
 import freemarker.core.HTMLOutputFormat
@@ -12,8 +12,6 @@ import io.ktor.config.*
 import io.ktor.features.*
 import io.ktor.freemarker.*
 
-import io.ktor.response.*
-import io.ktor.routing.*
 import io.ktor.serialization.*
 import kotlinx.serialization.json.Json
 
