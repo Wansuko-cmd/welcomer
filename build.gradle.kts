@@ -5,6 +5,7 @@ val exposed_version: String by project
 val hikari_version: String by project
 val postgres_version: String by project
 val flyway_version: String by project
+val koin_version: String by project
 
 plugins {
     application
@@ -26,6 +27,8 @@ application {
 
 repositories {
     mavenCentral()
+    jcenter()
+    maven("https://kotlin.bintray.com/ktor")
 }
 
 dependencies {
@@ -71,4 +74,7 @@ dependencies {
 
     //認証用
     implementation("io.ktor:ktor-auth:$ktor_version")
+
+    //Koin
+    implementation("org.koin:koin-ktor:$koin_version")
 }
