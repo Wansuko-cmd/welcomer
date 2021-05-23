@@ -9,6 +9,7 @@ import io.ktor.config.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import org.koin.ktor.ext.inject
 import java.util.*
 
 fun Route.replyMessageRoute(){
@@ -16,6 +17,8 @@ fun Route.replyMessageRoute(){
     //Postを飛ばす先を設定ファイルから読み込む処理
     val appConfig = HoconApplicationConfig(ConfigFactory.load())
     val challengeMode = appConfig.property("reply.challengeMode").getString().lowercase(Locale.getDefault())
+
+    val sendMessageService by inject<SendMessageService>()
     /**
      * Slack APIからイベントを受け取り、メッセージを送信
      */
@@ -34,8 +37,8 @@ fun Route.replyMessageRoute(){
         call.respond(Challenge("www", "Got it", "www"))
 
         //送るメッセージがあれば送る(nullであれば送らない)
-        SendMessageService.makeReply(action)?.let {
-            SendMessageService.sendMessage(it)
+        sendMessageService.makeReply(action)?.let {
+            sendMessageService.sendMessage(it)
         }
     }
 }

@@ -9,7 +9,7 @@ import org.flywaydb.core.Flyway
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object DBController {
+class DBController {
 
     private val appConfig = HoconApplicationConfig(ConfigFactory.load())
     private val driverClass = appConfig.property("db.driverClass").getString()
@@ -28,7 +28,7 @@ object DBController {
     private fun hikari(): HikariDataSource {
         val config = HikariConfig().apply {
             driverClassName = driverClass
-            jdbcUrl = DBController.jdbcUrl
+            jdbcUrl = this@DBController.jdbcUrl
             username = dbUser
             password = dbPassword
             maximumPoolSize = 3

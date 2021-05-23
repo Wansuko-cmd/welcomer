@@ -8,8 +8,13 @@ import io.ktor.freemarker.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import org.koin.ktor.ext.inject
 
 fun Route.messageRoute(){
+
+    val dbController by inject<DBController>()
+    val sendMessageService by inject<SendMessageService>()
+
     get("/message"){
         call.respond(FreeMarkerContent("views/pages/message/index.ftl", mapOf("" to ""), ""))
     }
@@ -22,8 +27,8 @@ fun Route.messageRoute(){
         val params = call.receiveParameters()
 
         params["body"]?.let {
-            SendMessageService.sendMessage(Message(it))
-            DBController.makeSentMessageHistory("Owner", "Webから送信", it)
+            sendMessageService.sendMessage(Message(it))
+            dbController.makeSentMessageHistory("Owner", "Webから送信", it)
         }
 
         call.respondRedirect("/message/done")

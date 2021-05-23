@@ -9,8 +9,9 @@ import io.ktor.client.request.*
 import io.ktor.config.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.koin.core.inject
 
-object I10janService : I10janInterface {
+class I10janService : I10janInterface {
 
     //Postを投げるためのクライアントのインストール
     private val client = HttpClient(CIO){
@@ -26,6 +27,7 @@ object I10janService : I10janInterface {
 
         try {
             return@withContext client.get<I10jan>(url)
+
         } catch (e: Exception) {
             return@withContext I10jan(false, listOf())
         }

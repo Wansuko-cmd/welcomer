@@ -5,8 +5,8 @@ import com.wsr.model.json.Message
 import com.wsr.model.db.DBController
 import com.wsr.model.db.entities.User
 import com.wsr.model.db.tables.Users
-import com.wsr.model.json.i10jan.I10jan
 import com.wsr.model.json.slack.Action
+import com.wsr.services.i10jan.I10janInterface
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.features.json.*
@@ -17,8 +17,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-object SendMessageService{
+class SendMessageService : KoinComponent{
 
     //Postを投げるためのクライアントのインストール
     private val client = HttpClient(CIO){
@@ -27,6 +29,12 @@ object SendMessageService{
 
     //Postを飛ばす先を設定ファイルから読み込む処理
     private val appConfig = HoconApplicationConfig(ConfigFactory.load())
+
+
+    private val dbController by inject<DBController>()
+    private val i10janService by inject<I10janInterface>()
+
+
 
     /**
      * イベントに応じて叩く関数を指定する関数
@@ -42,7 +50,7 @@ object SendMessageService{
         }
 
         sendMessage?.let { message ->
-            DBController.makeSentMessageHistory(
+            dbController.makeSentMessageHistory(
                 action.event.user,
                 action.event.text ?: "${action.event.user} がチームに参加",
                 message.text
@@ -129,12 +137,11 @@ object SendMessageService{
 
     private fun getI10janResult(): String = runBlocking{
 
-        val url = appConfig.property("i10jan.url").getString()
 
         try{
 
             //メッセージを送信する処理
-            val result = client.get<I10jan>(url)
+            val result = i10janService.getI10janResult()
 
             return@runBlocking when{
                 !result.success ->"取得に失敗しました☆"
