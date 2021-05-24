@@ -7,6 +7,9 @@ import io.ktor.routing.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.time.LocalDateTime
 
+/**
+ * API関連のルートを定義
+ */
 fun Route.apiRoute(){
 
     /**

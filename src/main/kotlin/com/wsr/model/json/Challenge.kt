@@ -2,7 +2,9 @@ package com.wsr.model.json
 
 import kotlinx.serialization.*
 
-//Urlを登録する際に使うクラス
+/**
+ * SlackにUrlを登録する際に使うクラス
+ */
 @Serializable
 data class Challenge(
     val token: String,

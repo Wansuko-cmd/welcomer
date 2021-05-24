@@ -5,6 +5,9 @@ import io.ktor.application.*
 import io.ktor.auth.*
 import io.ktor.config.*
 
+/**
+ * 認証機能のインストール
+ */
 fun Application.authenticationInstaller() {
 
     //Postを飛ばす先を設定ファイルから読み込む処理

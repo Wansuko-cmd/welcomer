@@ -20,6 +20,9 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
+/**
+ * メッセージの作成、および送信を行うクラス
+ */
 class SendMessageService : KoinComponent{
 
     //Postを投げるためのクライアントのインストール
@@ -30,8 +33,10 @@ class SendMessageService : KoinComponent{
     //Postを飛ばす先を設定ファイルから読み込む処理
     private val appConfig = HoconApplicationConfig(ConfigFactory.load())
 
-
+    //DB操作をおこなうインスタンス
     private val dbController by inject<DBController>()
+
+    //I10janとの接続を行うインターフェイス
     private val i10janService by inject<I10janInterface>()
 
 
@@ -86,7 +91,7 @@ class SendMessageService : KoinComponent{
     /**
      * アプリがメンションされた際に返すメッセージを作成する関数
      */
-    private fun makeReplyMessage(text: String?): Message?{
+    fun makeReplyMessage(text: String?): Message?{
 
         if(text == null) return null
 
@@ -135,14 +140,16 @@ class SendMessageService : KoinComponent{
         return null
     }
 
+    /**
+     * 部室に人がいるかどうかを判断してメッセージを作成する関数
+     */
     private fun getI10janResult(): String = runBlocking{
 
-
         try{
-
             //メッセージを送信する処理
             val result = i10janService.getI10janResult()
 
+            //メッセージの作成
             return@runBlocking when{
                 !result.success ->"取得に失敗しました☆"
                 result.data.count() <= 0 -> "部室には誰もいないです"

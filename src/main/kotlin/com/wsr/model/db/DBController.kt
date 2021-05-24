@@ -9,6 +9,9 @@ import org.flywaydb.core.Flyway
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.transactions.transaction
 
+/**
+ * データベースを操作するためのクラス
+ */
 class DBController {
 
     private val appConfig = HoconApplicationConfig(ConfigFactory.load())
@@ -17,6 +20,9 @@ class DBController {
     private val dbUser = appConfig.property("db.user").getString()
     private val dbPassword = appConfig.property("db.password").getString()
 
+    /**
+     * データベースへのマイグレーションおよび接続を行う関数
+     */
     fun init(){
         Flyway.configure()
             .dataSource(jdbcUrl, dbUser, dbPassword)
@@ -25,6 +31,9 @@ class DBController {
         Database.connect(hikari())
     }
 
+    /**
+     * コネクションプールをするための設定を作成する関数
+     */
     private fun hikari(): HikariDataSource {
         val config = HikariConfig().apply {
             driverClassName = driverClass
@@ -39,6 +48,9 @@ class DBController {
         return HikariDataSource(config)
     }
 
+    /**
+     * メッセージ送信履歴を作成するための関数
+     */
     fun makeSentMessageHistory(user: String, comingMessage: String, reply: String){
         transaction {
             SentMessage.new {

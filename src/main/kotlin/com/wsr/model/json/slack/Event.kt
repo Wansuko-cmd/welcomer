@@ -1,8 +1,10 @@
 package com.wsr.model.json.slack
 
-import com.typesafe.config.Optional
 import kotlinx.serialization.Serializable
 
+/**
+ * Slackから送られてきたActionのうちのEventを読み取るためのクラス
+ */
 @Serializable
 data class Event(
     val type: String,

@@ -9,8 +9,10 @@ import io.ktor.client.request.*
 import io.ktor.config.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.koin.core.inject
 
+/**
+ * I10janのAPIを叩くクラス
+ */
 class I10janService : I10janInterface {
 
     //Postを投げるためのクライアントのインストール
@@ -23,6 +25,9 @@ class I10janService : I10janInterface {
 
     private val url = appConfig.property("i10jan.url").getString()
 
+    /**
+     * I10janのAPIを叩く関数
+     */
     override suspend fun getI10janResult(): I10jan = withContext(Dispatchers.IO){
 
         try {

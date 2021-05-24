@@ -8,6 +8,9 @@ import io.ktor.application.*
 import org.koin.dsl.module
 import org.koin.ktor.ext.Koin
 
+/**
+ * DIライブラリ「Koin」のインストール
+ */
 fun Application.koinInstaller(){
 
     //Applicationでは動かなかったため、初期設定したものをDI

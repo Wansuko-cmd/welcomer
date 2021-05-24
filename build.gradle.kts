@@ -26,6 +26,7 @@ application {
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
     jcenter()
     maven("https://kotlin.bintray.com/ktor")

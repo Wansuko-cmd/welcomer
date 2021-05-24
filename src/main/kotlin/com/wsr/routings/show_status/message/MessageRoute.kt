@@ -15,14 +15,23 @@ fun Route.messageRoute(){
     val dbController by inject<DBController>()
     val sendMessageService by inject<SendMessageService>()
 
+    /**
+     * 送信するメッセージの作成画面の表示
+     */
     get("/message"){
         call.respond(FreeMarkerContent("views/pages/message/index.ftl", mapOf("" to ""), ""))
     }
 
+    /**
+     * 送信が完了したことを表す画面の表示
+     */
     get("/message/done"){
         call.respond(FreeMarkerContent("views/pages/message/done.ftl", mapOf("" to ""), ""))
     }
 
+    /**
+     * メッセージを送信するためのPost先
+     */
     post("/message"){
         val params = call.receiveParameters()
 

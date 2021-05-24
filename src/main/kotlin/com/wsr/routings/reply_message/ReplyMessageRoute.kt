@@ -12,13 +12,18 @@ import io.ktor.routing.*
 import org.koin.ktor.ext.inject
 import java.util.*
 
+/**
+ * メッセージの送信部分のルートの定義
+ */
 fun Route.replyMessageRoute(){
 
     //Postを飛ばす先を設定ファイルから読み込む処理
     val appConfig = HoconApplicationConfig(ConfigFactory.load())
     val challengeMode = appConfig.property("reply.challengeMode").getString().lowercase(Locale.getDefault())
 
+    //メッセージの作成や送信を行うクラス
     val sendMessageService by inject<SendMessageService>()
+
     /**
      * Slack APIからイベントを受け取り、メッセージを送信
      */

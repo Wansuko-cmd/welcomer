@@ -1,15 +1,35 @@
 package com.wsr
 
+import com.wsr.model.db.DBController
 import com.wsr.model.json.Challenge
 import com.wsr.model.json.i10jan.I10jan
 import com.wsr.model.json.i10jan.NickName
+import com.wsr.services.SendMessageService
+import com.wsr.services.i10jan.I10janService
 import io.ktor.http.*
 import kotlin.test.*
 import io.ktor.server.testing.*
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
 
-class ApplicationTest {
+class ApplicationTest{
+
+
+
+    @BeforeTest
+    fun before(){
+        val dbController = DBController().apply { init() }
+
+        val testModule = module(override = true) {
+            single { I10janService() }
+            single { SendMessageService() }
+            single { dbController }
+        }
+
+        startKoin { listOf(testModule) }
+    }
 
     /**
      * テストするURL: ルート
@@ -19,6 +39,7 @@ class ApplicationTest {
      */
     @Test
     fun testRootPost() {
+
         val challengeJson = Json.encodeToString(
             Challenge(
                 "Jhj5dZrVaK7ZwHHjRyZWjbDl",
