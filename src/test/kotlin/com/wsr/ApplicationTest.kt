@@ -16,18 +16,13 @@ import org.koin.dsl.module
 
 class ApplicationTest{
 
-//    @BeforeTest
-//    fun before(){
-//        val dbController = DBController().apply { init() }
-//
-//        val testModule = module(override = true) {
-//            single<I10janInterface> { I10janService() }
-//            single<SendMessageInterface> { SendMessageService() }
-//            single { dbController }
-//        }
-//
-//        startKoin { modules(testModule) }
-//    }
+    private val dbController = DBController().apply { init() }
+
+    private val testModule = module(override = true) {
+        single<I10janInterface> { I10janService() }
+        single<SendMessageInterface> { SendMessageService() }
+        single { dbController }
+    }
 
     /**
      * テストするURL: ルート
@@ -46,7 +41,7 @@ class ApplicationTest{
             )
         )
 
-        withTestApplication({ main() }) {
+        withTestApplication({ main(testing = true, testModule = testModule) }) {
             handleRequest(HttpMethod.Post, "/") {
                 addHeader("Content-Type", "application/json")
                 setBody(challengeJson)

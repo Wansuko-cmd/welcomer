@@ -4,7 +4,6 @@ import com.typesafe.config.ConfigFactory
 import com.wsr.model.json.Challenge
 import com.wsr.model.json.slack.Action
 import com.wsr.services.send_message.SendMessageInterface
-import com.wsr.services.send_message.SendMessageService
 import io.ktor.application.*
 import io.ktor.config.*
 import io.ktor.request.*
