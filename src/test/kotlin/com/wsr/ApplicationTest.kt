@@ -2,10 +2,10 @@ package com.wsr
 
 import com.wsr.model.db.DBController
 import com.wsr.model.json.Challenge
-import com.wsr.model.json.i10jan.I10jan
-import com.wsr.model.json.i10jan.NickName
-import com.wsr.services.SendMessageService
+import com.wsr.services.i10jan.I10janInterface
+import com.wsr.services.send_message.SendMessageService
 import com.wsr.services.i10jan.I10janService
+import com.wsr.services.send_message.SendMessageInterface
 import io.ktor.http.*
 import kotlin.test.*
 import io.ktor.server.testing.*
@@ -16,20 +16,18 @@ import org.koin.dsl.module
 
 class ApplicationTest{
 
-
-
-    @BeforeTest
-    fun before(){
-        val dbController = DBController().apply { init() }
-
-        val testModule = module(override = true) {
-            single { I10janService() }
-            single { SendMessageService() }
-            single { dbController }
-        }
-
-        startKoin { listOf(testModule) }
-    }
+//    @BeforeTest
+//    fun before(){
+//        val dbController = DBController().apply { init() }
+//
+//        val testModule = module(override = true) {
+//            single<I10janInterface> { I10janService() }
+//            single<SendMessageInterface> { SendMessageService() }
+//            single { dbController }
+//        }
+//
+//        startKoin { modules(testModule) }
+//    }
 
     /**
      * テストするURL: ルート
@@ -38,7 +36,7 @@ class ApplicationTest{
      * Response: 受け取ったものと同じJson
      */
     @Test
-    fun testRootPost() {
+    fun Slackに登録する際に飛ばされるChallengeを返す処理() {
 
         val challengeJson = Json.encodeToString(
             Challenge(
@@ -55,38 +53,6 @@ class ApplicationTest{
             }.apply {
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertEquals(challengeJson, response.content)
-            }
-        }
-    }
-
-    /**
-     * テストするURL: ルート
-     * Method: Get
-     * Receive: なし
-     * Response: This server is working!
-     */
-    @Test
-    fun testRootGet(){
-        withTestApplication({ main() }){
-            handleRequest(HttpMethod.Get, "/").apply {
-                assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals("This server is working!", response.content)
-            }
-        }
-    }
-
-    @Test
-    fun i10janTest(){
-
-        val i10janJson = Json
-            .encodeToString(I10jan(true, listOf(NickName("いけちぃ"), NickName("オキリョウ"))))
-
-        withTestApplication({ main() }){
-            handleRequest(HttpMethod.Post, "/test") {
-                addHeader("Content-Type", "application/json")
-                setBody(i10janJson)
-            }.apply {
-                assertEquals(HttpStatusCode.OK, response.status())
             }
         }
     }

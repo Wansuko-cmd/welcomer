@@ -1,4 +1,4 @@
-package com.wsr.services
+package com.wsr.services.send_message
 
 import com.typesafe.config.ConfigFactory
 import com.wsr.model.json.Message
@@ -17,13 +17,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 /**
  * メッセージの作成、および送信を行うクラス
  */
-class SendMessageService : KoinComponent{
+class SendMessageService : SendMessageInterface, KoinComponent {
 
     //Postを投げるためのクライアントのインストール
     private val client = HttpClient(CIO){
@@ -45,7 +45,7 @@ class SendMessageService : KoinComponent{
      * イベントに応じて叩く関数を指定する関数
      * null -> 送信しない
      */
-    fun makeReply(action: Action): Message? {
+    override fun makeReply(action: Action): Message? {
         if (action.event.user == null) return null
 
         val sendMessage = when (action.event.type) {
@@ -68,7 +68,7 @@ class SendMessageService : KoinComponent{
     /**
      * 指定されたurlへメッセージを送信
      */
-    suspend fun sendMessage(message: Message) = withContext(Dispatchers.Default) {
+    override suspend fun sendMessage(message: Message) = withContext(Dispatchers.Default) {
 
         val url = appConfig.property("slack.url").getString()
 
@@ -91,7 +91,7 @@ class SendMessageService : KoinComponent{
     /**
      * アプリがメンションされた際に返すメッセージを作成する関数
      */
-    fun makeReplyMessage(text: String?): Message?{
+    override fun makeReplyMessage(text: String?): Message?{
 
         if(text == null) return null
 
@@ -112,7 +112,7 @@ class SendMessageService : KoinComponent{
     /**
      * 新たなチームメンバーが入ってきたときに紹介文を用意するか決める関数
      */
-    private fun makeIntroductionMessage(userId: String): Message?{
+    override fun makeIntroductionMessage(userId: String): Message?{
 
         //データベースに、既に紹介文を送信したユーザーとして登録されているかどうか
         var isExist = false
@@ -143,7 +143,7 @@ class SendMessageService : KoinComponent{
     /**
      * 部室に人がいるかどうかを判断してメッセージを作成する関数
      */
-    private fun getI10janResult(): String = runBlocking{
+    override fun getI10janResult(): String = runBlocking{
 
         try{
             //メッセージを送信する処理

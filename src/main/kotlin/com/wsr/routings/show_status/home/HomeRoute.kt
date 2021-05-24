@@ -22,8 +22,6 @@ fun Route.homeRoute(){
             sentMessages = SentMessage.all().toList()
         }
 
-//        DBController.makeSentMessageHistory("test", "test", "aho")
-
         call.respond(FreeMarkerContent(
             "views/pages/index.ftl",
             mapOf("sentMessages" to sentMessages),

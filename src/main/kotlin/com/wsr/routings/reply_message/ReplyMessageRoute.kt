@@ -3,7 +3,8 @@ package com.wsr.routings.reply_message
 import com.typesafe.config.ConfigFactory
 import com.wsr.model.json.Challenge
 import com.wsr.model.json.slack.Action
-import com.wsr.services.SendMessageService
+import com.wsr.services.send_message.SendMessageInterface
+import com.wsr.services.send_message.SendMessageService
 import io.ktor.application.*
 import io.ktor.config.*
 import io.ktor.request.*
@@ -22,7 +23,7 @@ fun Route.replyMessageRoute(){
     val challengeMode = appConfig.property("reply.challengeMode").getString().lowercase(Locale.getDefault())
 
     //メッセージの作成や送信を行うクラス
-    val sendMessageService by inject<SendMessageService>()
+    val sendMessageService by inject<SendMessageInterface>()
 
     /**
      * Slack APIからイベントを受け取り、メッセージを送信
@@ -32,7 +33,7 @@ fun Route.replyMessageRoute(){
         //Slackに登録する際に使用
         if(challengeMode == "true") {
             val challenge = call.receive<Challenge>()
-            call.respond(challenge)
+            return@post call.respond(challenge)
         }
 
         //Slack APIから、イベントの情報を入手

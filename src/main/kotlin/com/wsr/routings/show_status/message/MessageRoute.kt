@@ -2,7 +2,8 @@ package com.wsr.routings.show_status.message
 
 import com.wsr.model.json.Message
 import com.wsr.model.db.DBController
-import com.wsr.services.SendMessageService
+import com.wsr.services.send_message.SendMessageInterface
+import com.wsr.services.send_message.SendMessageService
 import io.ktor.application.*
 import io.ktor.freemarker.*
 import io.ktor.request.*
@@ -13,7 +14,7 @@ import org.koin.ktor.ext.inject
 fun Route.messageRoute(){
 
     val dbController by inject<DBController>()
-    val sendMessageService by inject<SendMessageService>()
+    val sendMessageService by inject<SendMessageInterface>()
 
     /**
      * 送信するメッセージの作成画面の表示

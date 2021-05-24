@@ -26,10 +26,7 @@ application {
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
-    jcenter()
-    maven("https://kotlin.bintray.com/ktor")
 }
 
 dependencies {
@@ -77,5 +74,6 @@ dependencies {
     implementation("io.ktor:ktor-auth:$ktor_version")
 
     //Koin
-    implementation("org.koin:koin-ktor:$koin_version")
+    implementation("io.insert-koin:koin-ktor:$koin_version")
+    implementation("io.insert-koin:koin-logger-slf4j:$koin_version")
 }
