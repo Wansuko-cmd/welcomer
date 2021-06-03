@@ -1,7 +1,7 @@
 package com.wsr.services
 
 import com.wsr.model.db.DBController
-import com.wsr.model.json.Message
+import com.wsr.model.json.message.Message
 import com.wsr.modules.I10janTestService
 import com.wsr.services.i10jan.I10janInterface
 import com.wsr.services.send_message.SendMessageInterface

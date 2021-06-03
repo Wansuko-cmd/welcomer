@@ -13,11 +13,4 @@ fun Route.showStatusRoute(){
     homeRoute()
     introductionRoute()
     messageRoute()
-
-    /**
-     * 画像ファイルを配信するルート
-     */
-    static("/src"){
-        resources("src")
-    }
 }

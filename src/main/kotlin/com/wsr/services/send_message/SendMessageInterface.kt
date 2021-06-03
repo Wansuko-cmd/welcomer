@@ -1,6 +1,6 @@
 package com.wsr.services.send_message
 
-import com.wsr.model.json.Message
+import com.wsr.model.json.message.Message
 import com.wsr.model.json.slack.Action
 
 interface SendMessageInterface {

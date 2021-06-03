@@ -1,4 +1,4 @@
-package com.wsr.model.json
+package com.wsr.model.json.message
 
 import kotlinx.serialization.Serializable
 
@@ -8,5 +8,6 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Message(
-    val text: String
+    val text: String,
+    val attachments: List<Attachments>? = null
 )

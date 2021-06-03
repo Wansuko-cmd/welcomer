@@ -1,6 +1,6 @@
 package com.wsr.modules
 
-import com.wsr.model.json.Message
+import com.wsr.model.json.message.Message
 import com.wsr.model.json.slack.Action
 import com.wsr.services.send_message.SendMessageInterface
 

@@ -1,5 +1,6 @@
 package com.wsr.model.json.slack
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
@@ -9,5 +10,5 @@ import kotlinx.serialization.Serializable
 data class Action(
     val token: String,
     val event: Event,
-    val event_id: String
+    @SerialName("event_id") val eventId: String
 )

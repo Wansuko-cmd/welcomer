@@ -1,10 +1,11 @@
 package com.wsr.services.send_message
 
 import com.typesafe.config.ConfigFactory
-import com.wsr.model.json.Message
+import com.wsr.model.json.message.Message
 import com.wsr.model.db.DBController
 import com.wsr.model.db.entities.User
 import com.wsr.model.db.tables.Users
+import com.wsr.model.json.message.Attachments
 import com.wsr.model.json.slack.Action
 import com.wsr.services.i10jan.I10janInterface
 import io.ktor.client.*
@@ -91,22 +92,21 @@ class SendMessageService : SendMessageInterface, KoinComponent {
     /**
      * アプリがメンションされた際に返すメッセージを作成する関数
      */
-    override fun makeReplyMessage(text: String?): Message?{
+    override fun makeReplyMessage(text: String?): Message? {
 
-        if(text == null) return null
+        if (text == null) return null
 
         val getMessage = text.removePrefix("<@U0211DXNPGE>").trim()
 
         println(getMessage)
 
-        val replyText = when(getMessage){
-            "Hello World" -> "はろーわーるど"
-            "部室" -> getI10janResult()
-            "" -> "https://ja.wikipedia.org/wiki/Kotlin"
-            else -> getMessage
+        return when (getMessage) {
+            "Hello World" -> Message("はろーわーるど")
+            "部室" -> Message(getI10janResult())
+            "自己紹介" -> Message("自己紹介！", listOf(Attachments("https://5ce87f072ed4.ngrok.io/src/bot_file/self_introduction.png")))
+            "" -> Message("https://ja.wikipedia.org/wiki/Kotlin")
+            else -> Message(getMessage)
         }
-
-        return Message(replyText)
     }
 
     /**
