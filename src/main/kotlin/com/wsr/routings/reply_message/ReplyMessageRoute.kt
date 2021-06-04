@@ -9,6 +9,7 @@ import io.ktor.config.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import kotlinx.coroutines.delay
 import org.koin.ktor.ext.inject
 import java.util.*
 
@@ -34,6 +35,7 @@ fun Route.replyMessageRoute(){
             val challenge = call.receive<Challenge>()
             return@post call.respond(challenge)
         }
+        delay(10000)
 
         //Slack APIから、イベントの情報を入手
         val action = call.receive<Action>()
@@ -41,9 +43,17 @@ fun Route.replyMessageRoute(){
         // Slack APIに、無事入手したことを報告(これをしないと定期的に送られてくる)
         call.respond(Challenge("www", "Got it", "www"))
 
-        //送るメッセージがあれば送る(nullであれば送らない)
-        sendMessageService.makeReply(action)?.let {
-            sendMessageService.sendMessage(it)
+        //headerの確認
+        val headers = call.request.headers
+
+        //1回目のメッセージなら
+        if(headers["X-Slack-Retry-Num"] == null){
+            //送るメッセージがあれば送る(nullであれば送らない)
+            sendMessageService.makeReply(action)?.let {
+                sendMessageService.sendMessage(it)
+            }
+        }else{
+            println("Pass")
         }
     }
 }
