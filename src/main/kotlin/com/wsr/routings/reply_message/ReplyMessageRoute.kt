@@ -35,7 +35,6 @@ fun Route.replyMessageRoute(){
             val challenge = call.receive<Challenge>()
             return@post call.respond(challenge)
         }
-        delay(10000)
 
         //Slack APIから、イベントの情報を入手
         val action = call.receive<Action>()
