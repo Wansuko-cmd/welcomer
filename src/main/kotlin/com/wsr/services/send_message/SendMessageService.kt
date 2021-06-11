@@ -92,7 +92,7 @@ class SendMessageService : SendMessageInterface, KoinComponent {
     /**
      * アプリがメンションされた際に返すメッセージを作成する関数
      */
-    override fun makeReplyMessage(text: String?): Message? {
+    private fun makeReplyMessage(text: String?): Message? {
 
         if (text == null) return null
 
@@ -112,7 +112,7 @@ class SendMessageService : SendMessageInterface, KoinComponent {
     /**
      * 新たなチームメンバーが入ってきたときに紹介文を用意するか決める関数
      */
-    override fun makeIntroductionMessage(userId: String): Message?{
+    private fun makeIntroductionMessage(userId: String): Message?{
 
         //データベースに、既に紹介文を送信したユーザーとして登録されているかどうか
         var isExist = false
@@ -143,7 +143,7 @@ class SendMessageService : SendMessageInterface, KoinComponent {
     /**
      * 部室に人がいるかどうかを判断してメッセージを作成する関数
      */
-    override fun getI10janResult(): String = runBlocking{
+    private fun getI10janResult(): String = runBlocking{
 
         try{
             //メッセージを送信する処理

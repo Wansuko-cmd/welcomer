@@ -19,23 +19,4 @@ interface SendMessageInterface {
     suspend fun sendMessage(message: Message)
 
 
-
-    /**
-     * アプリがメンションされた際に返すメッセージを作成する関数
-     */
-    fun makeReplyMessage(text: String?): Message?
-
-
-
-    /**
-     * 新たなチームメンバーが入ってきたときに紹介文を用意するか決める関数
-     */
-    fun makeIntroductionMessage(userId: String): Message?
-
-
-
-    /**
-     * 部室に人がいるかどうかを判断してメッセージを作成する関数
-     */
-    fun getI10janResult(): String
 }

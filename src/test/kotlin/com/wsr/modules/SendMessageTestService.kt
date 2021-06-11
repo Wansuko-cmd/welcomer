@@ -12,16 +12,4 @@ class SendMessageTestService : SendMessageInterface {
     override suspend fun sendMessage(message: Message) {
         TODO("Not yet implemented")
     }
-
-    override fun makeReplyMessage(text: String?): Message? {
-        return Message("SUCCESS")
-    }
-
-    override fun makeIntroductionMessage(userId: String): Message? {
-        TODO("Not yet implemented")
-    }
-
-    override fun getI10janResult(): String {
-        TODO("Not yet implemented")
-    }
 }

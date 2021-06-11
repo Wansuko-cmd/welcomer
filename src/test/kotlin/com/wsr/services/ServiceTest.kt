@@ -13,6 +13,9 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
+import kotlin.reflect.full.memberFunctions
+import kotlin.reflect.full.memberProperties
+import kotlin.reflect.jvm.isAccessible
 
 class ServiceTest : KoinComponent {
 
@@ -34,7 +37,13 @@ class ServiceTest : KoinComponent {
     fun 部室に人がいる場合のI10janのメッセージ(){
 
         val sendMessageService by inject<SendMessageInterface>()
-        val text = sendMessageService.makeReplyMessage("部室")
+        val text = sendMessageService::class.memberFunctions
+            .find { it.name == "makeReplyMessage" }
+            ?.let{
+                it.isAccessible = true
+                it.call(sendMessageService, "部室")  //.makeReplyMessage("部室")
+            }
+
         Assert.assertEquals(Message("部室には今いけちぃとオキリョウがいますよ！"), text)
     }
 }
